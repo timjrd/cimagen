@@ -1,0 +1,29 @@
+body
+{
+}
+
+.center
+{
+    width: 900px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+canvas
+{    
+    box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.panel
+{
+    width: 300px;
+    display: inline-block;
+}
+code
+{
+    
+}
