@@ -7,7 +7,7 @@ var VARIABLE_PROBA = 20/100;
 var CONSTANT_LIST_PROBA = 10/100;
 
 var RANDOM_CONSTANT_RANGE = [-10,10];
-var VARIABLE_COUNT = 3; // x, y, t
+var VARIABLE_COUNT = 2; // x, y [, t]
 var MIN_DEPTH = 3;
 var MAX_DEPTH = 8;
 

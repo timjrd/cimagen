@@ -2,13 +2,11 @@
 
 var ANIMATION_DURATION = 1;
 
-var Node     = null;
-var Compiled = null;
+var Expr         = null;
+var CompiledExpr = null;
 
 var Canvas = null;
 
-// var StartTime  = null;
-// var IntervalId = null;
 
 function init()
 {
@@ -19,40 +17,28 @@ function init()
 
 function onNew()
 {
-    Node = generate(0);
-    Compiled = compileNode(Node);
+    Expr = null;
+    CompiledExpr = null;
+    while (CompiledExpr === null)
+    {
+        Expr = generate(0);
+        CompiledExpr = compile(Expr);
+    }
     
     var code = document.getElementById("code");
-    var str = print(Node);
-    code.value = str;
+    code.value = print(Expr);
 
-    drawFrame(Canvas, null, Compiled, 0);
-    
-    // if (IntervalId !== null)
-    //     window.clearInterval(IntervalId);
-
-    // StartTime = Date.now() / 1000;
-    // IntervalId = window.setInterval(tick, 1000/30);
+    var preData = precompute(CompiledExpr, {width:Canvas.width, height:Canvas.height}, getCoordSystem("cartesian"), false);
+    draw(preData, Canvas);
 }
 
 function onRead()
 {
     var textarea = document.getElementById("code");
     
-    Node = readNode( textarea.value );
-    Compiled = compileNode(Node);
+    Expr = read( textarea.value );
+    CompiledExpr = compile(Expr);
 
-    drawFrame(Canvas, null, Compiled, 0);
+    var preData = precompute(CompiledExpr, {width:Canvas.width, height:Canvas.height}, getCoordSystem("polar sinus"), false);
+    draw(preData, Canvas);
 }
-
-// function tick()
-// {
-//     var now = Date.now()/1000;
-
-//     if (now - StartTime > ANIMATION_DURATION)
-//         StartTime = now;
-
-//     var t = (now - StartTime) / ANIMATION_DURATION;
-    
-//     drawFrame(Canvas, null, Compiled, t);
-// }

@@ -10,7 +10,7 @@ var CONSTANTS = [
 function getConstant(name)
 {
     for (var i = 0; i < CONSTANTS.length; i++)
-        if (CONSTANTS[i].name == name)
+        if (CONSTANTS[i].name === name)
             return CONSTANTS[i];
 
     return null;

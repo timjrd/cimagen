@@ -1,13 +1,20 @@
 "use strict";
 
-function compileNode(node)
+function compile(node)
 {
-    var expression = compileNode_(evalConstantParts(node));
-
-    return new Function("variables", "return " + expression + ";");
+    var node_ = evalConstantParts(node);
+    if (node_ === null)
+    {
+        return null;
+    }
+    else
+    {
+        var expression = compile_(node_);
+        return new Function("variables", "return " + expression + ";");
+    }
 }
 
-function compileNode_(node)
+function compile_(node)
 {
     if (node.constantValue !== null)
     {
@@ -19,8 +26,8 @@ function compileNode_(node)
     }
     else
     {
-        var left  = compileNode_(node.leftOperand);
-        var right = (node.rightOperand === null) ? "" : compileNode_(node.rightOperand);
+        var left  = compile_(node.leftOperand);
+        var right = (node.rightOperand === null) ? "" : compile_(node.rightOperand);
         
         return "(" + node.operator.jsexpr.replace(/\$0/g, left).replace(/\$1/g, right) + ")";
     }
@@ -28,16 +35,23 @@ function compileNode_(node)
 
 function evalConstantParts(node)
 {
-    var copy = copyNode(node);
-    
-    var res = evalConstantParts_(copy);
-    if (res !== null)
+    try
     {
-        copy = emptyNode();
-        copy.constantValue = res;
-    }
+        var copy = copyNode(node);
+        
+        var res = evalConstantParts_(copy, {value:false});
+        if (res !== null)
+        {
+            copy = emptyNode();
+            copy.constantValue = res;
+        }
 
-    return copy;
+        return copy;
+    }
+    catch (e)
+    {
+        return null;
+    }
 }
 
 function evalConstantParts_(node)
@@ -72,7 +86,12 @@ function evalConstantParts_(node)
         }
         else
         {
-            return operatorFunction(node.operator)(left,right);
+            var value = operatorFunction(node.operator)(left,right);
+
+            if (! isFinite(value))
+                throw "broken value";
+            
+            return value;
         }
     }
 }

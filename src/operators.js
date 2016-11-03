@@ -57,7 +57,7 @@ var OPERATORS = [
 function getOperator(name)
 {
     for (var i = 0; i < OPERATORS.length; i++)
-        if (OPERATORS[i].name == name)
+        if (OPERATORS[i].name === name)
             return OPERATORS[i];
 
     return null;

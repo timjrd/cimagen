@@ -9,7 +9,7 @@ var BLUE_GRADIENT = [ [12,44,132],
                       [237,248,177],
                       [255,255,217] ];
 
-function drawFrame(canvas, coordSystem, function_, t)
+function draw(preData, canvas)
 {
     var width  = canvas.width;
     var height = canvas.height;
@@ -17,34 +17,9 @@ function drawFrame(canvas, coordSystem, function_, t)
     var imageData = ctx.getImageData(0, 0, width, height);
     var data = imageData.data;
 
-    var preData = [];
+    var min = preData.min;
+    var max = preData.max;
     
-    var min = Number.MAX_VALUE;
-    var max = - Number.MAX_VALUE;
-    for (var y = 0; y < height; ++y)
-        for (var x = 0; x < width; ++x)
-    {
-        var xf = (x / (width  - 1)) * 2 - 1;
-        var yf = (y / (height - 1)) * 2 - 1;
-
-        var r     = Math.sqrt(xf*xf + yf*yf); 
-        var theta = Math.atan2(yf,xf);
-
-        //var value = function_([r,Math.sin(theta),t]);
-        var value = function_([xf,yf,t]);
-
-        if (! isFinite(value))
-            value = 0;
-
-        if (value < min)
-            min = value;
-        if (value > max)
-            max = value;
-
-        var preDataIndex = y * width + x;
-        preData[preDataIndex] = value;
-    }
-
     if (max === min)
         max = min + 1;
     
@@ -54,7 +29,7 @@ function drawFrame(canvas, coordSystem, function_, t)
         var preDataIndex = y * width + x;
         var index = (y * width + x) * 4;
 
-        var value = (preData[preDataIndex] - min) / (max - min);
+        var value = (preData.data[preDataIndex] - min) / (max - min);
 
         var color = gradient(value, BLUE_GRADIENT);
         

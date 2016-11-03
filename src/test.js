@@ -1,16 +1,6 @@
 "use strict";
 
-function onNext()
+function print_(x)
 {
-    var code = document.getElementById("code");
-    var tree = generate(1);
-    var str = print(tree, ["x","y","t"]);
-    code.textContent = str;
-}
-
-function speedTest()
-{
-    var start = Date.now();
-    var end   = Date.now();
-    var time  = end - start;
+    return print(x);
 }
