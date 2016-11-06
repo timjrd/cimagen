@@ -10,9 +10,14 @@ var Canvas = null;
 
 function init()
 {
-    Canvas = document.getElementById("canvas");
+    window.onresize = onResize;
     
-    onNew();
+    initGallery();
+}
+
+function onResize()
+{
+    onGalleryResize();
 }
 
 function onNew()
@@ -28,7 +33,7 @@ function onNew()
     var code = document.getElementById("code");
     code.value = print(Expr);
 
-    var preData = precompute(CompiledExpr, {width:Canvas.width, height:Canvas.height}, getCoordSystem("cartesian"), false);
+    var preData = precompute(CompiledExpr, Canvas.width, Canvas.height, getCoordSystem("polar sinus"), false);
     draw(preData, Canvas);
 }
 
@@ -39,6 +44,6 @@ function onRead()
     Expr = read( textarea.value );
     CompiledExpr = compile(Expr);
 
-    var preData = precompute(CompiledExpr, {width:Canvas.width, height:Canvas.height}, getCoordSystem("polar sinus"), false);
+    var preData = precompute(CompiledExpr, Canvas.width, Canvas.height, getCoordSystem("polar sinus"), false);
     draw(preData, Canvas);
 }

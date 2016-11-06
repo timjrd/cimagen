@@ -1,6 +1,6 @@
 "use strict";
 
-function precompute(expr, layout, coordSystem, abortOnInvalid)
+function precompute(img, width, height, abortOnInvalid)
 {
     var data = [];
 
@@ -9,13 +9,13 @@ function precompute(expr, layout, coordSystem, abortOnInvalid)
     var min = Number.MAX_VALUE;
     var max = - Number.MAX_VALUE;
     
-    for (var y = 0; y < layout.height && ! (invalid && abortOnInvalid); ++y)
-        for (var x = 0; x < layout.width && ! (invalid && abortOnInvalid); ++x)
+    for (var x = 0; x < width && ! (invalid && abortOnInvalid); x++)
+        for (var y = 0; y < height && ! (invalid && abortOnInvalid); y++)
     {
-        var xf = (x / (layout.width  - 1)) * 2 - 1;
-        var yf = (y / (layout.height - 1)) * 2 - 1;
+        var xf = (x / (width  - 1)) * 2 - 1;
+        var yf = - ((y / (height - 1)) * 2 - 1);
 
-        var value = expr( coordSystem.fromCartesian(xf,yf) );
+        var value = img.compiledExpr( img.coordSystem.fromCartesian(xf,yf) );
 
         if (! isFinite(value))
         {
@@ -28,7 +28,7 @@ function precompute(expr, layout, coordSystem, abortOnInvalid)
         if (value > max)
             max = value;
 
-        data[y * layout.width + x] = value;
+        data[y * width + x] = value;
     }
 
     return {

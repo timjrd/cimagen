@@ -79,6 +79,10 @@ function readOperator(str, pos)
 
     if (op === null)
         throw parseError("unknown operator", name);
+    else if (op.argc === 1 && right !== null)
+        throw parseError("one operand only", name);
+    else if (op.argc === 2 && right === null)
+        throw parseError("two operands required", name);
     
     return operatorNode(op, left, right);
 }
@@ -88,7 +92,7 @@ function readVariable(str, pos)
     var token = readToken(str, pos);
     var i = Number.parseInt(token);
     
-    if (isNaN(i))
+    if (! isFinite(i))
         throw parseError("invalid variable index", token);
     
     return variableNode(i);
@@ -110,7 +114,7 @@ function readConstant(str, pos)
     var token = readToken(str, pos);
     var value = Number.parseFloat(token);
 
-    if (isNaN(value))
+    if (! isFinite(value))
         throw parseError("invalid constant value", token);
     
     return constantNode(value);

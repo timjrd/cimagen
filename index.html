@@ -1,33 +1,30 @@
 <!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>eimgen</title>
-        <link rel="stylesheet" href="res/style.css">
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8">
+    <title>eimgen</title>
+    <link rel="stylesheet" href="res/style.css">
+  </head>
+  <body>
 
-        <div class="center">
-            <canvas id="canvas" width="600" height="600"></canvas><!--
-            
-            --><div class="panel">
-                <textarea rows="40" cols="50" id="code"></textarea>
-                <button onclick="onNew()">New</button>
-                <button onclick="onRead()">Read</button>
-            </div>
-        </div>
-
-        <script src="src/constants.js"></script>
-        <script src="src/operators.js"></script>
-        <script src="src/coord_systems.js"></script>
-        <script src="src/node.js"></script>
-        <script src="src/generate.js"></script>
-        <script src="src/compile.js"></script>
-        <script src="src/precompute.js"></script>
-        <script src="src/draw.js"></script>
-        <script src="src/print.js"></script>
-        <script src="src/read.js"></script>
-        <script src="src/main.js"></script>
-        <script>init();</script>
-    </body>
+    <div id="gallery">
+      <div id="galleryGenerated"><h2>Générés</h2><br /></div>
+    </div>
+    
+    <script src="src/constants.js"></script>
+    <script src="src/operators.js"></script>
+    <script src="src/coord_systems.js"></script>
+    <script src="src/image.js"></script>
+    <script src="src/node.js"></script>
+    <script src="src/random.js"></script>
+    <script src="src/generate.js"></script>
+    <script src="src/compile.js"></script>
+    <script src="src/precompute.js"></script>
+    <script src="src/draw.js"></script>
+    <script src="src/print.js"></script>
+    <script src="src/read.js"></script>
+    <script src="src/gallery.js"></script>
+    <script src="src/init.js"></script>
+    <script>init();</script>
+  </body>
 </html>

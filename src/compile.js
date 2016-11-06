@@ -2,16 +2,8 @@
 
 function compile(node)
 {
-    var node_ = evalConstantParts(node);
-    if (node_ === null)
-    {
-        return null;
-    }
-    else
-    {
-        var expression = compile_(node_);
-        return new Function("variables", "return " + expression + ";");
-    }
+    var expression = compile_(node);
+    return new Function("variables", "return " + expression + ";");
 }
 
 function compile_(node)

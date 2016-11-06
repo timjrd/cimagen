@@ -12,7 +12,12 @@ var MIN_DEPTH = 3;
 var MAX_DEPTH = 8;
 
 
-function generate(depth)
+function generate()
+{
+    return generate_(0);
+}
+
+function generate_(depth)
 {
     if (depth < MIN_DEPTH)
     {
@@ -45,11 +50,11 @@ function randomOperatorNode(depth)
 {
     var node = emptyNode();
 
-    node.operator = randomOperator();
-    node.leftOperand = generate(depth + 1);
+    node.operator = randomElement(OPERATORS);
+    node.leftOperand = generate_(depth + 1);
 
     if (node.operator.argc == 2)
-        node.rightOperand = generate(depth + 1);
+        node.rightOperand = generate_(depth + 1);
 
     return node;
 }
@@ -60,7 +65,7 @@ function randomConstantNode()
 
     if (Math.random() < CONSTANT_LIST_PROBA)
     {
-        node.specialConstant = randomConstant();
+        node.specialConstant = randomElement(CONSTANTS);
         node.constantValue = node.specialConstant.value;
     }
     else
@@ -76,40 +81,4 @@ function randomVariableNode()
     var node = emptyNode();
     node.variableIndex = randomInt(0, VARIABLE_COUNT);
     return node;
-}
-
-function randomOperator()
-{
-    var r = Math.random();
-    var suitable = [];
-    for (var i = 0; i < OPERATORS.length; i++)
-        if (r <= OPERATORS[i].frequency)
-            suitable.push(OPERATORS[i]);
-
-    var r2 = randomInt(0, suitable.length);
-    return suitable[r2];
-}
-
-function randomConstant()
-{
-    var r = Math.random();
-    var suitable = [];
-    for (var i = 0; i < CONSTANTS.length; i++)
-        if (r <= CONSTANTS[i].frequency)
-            suitable.push(CONSTANTS[i]);
-
-    var r2 = randomInt(0, suitable.length);
-    return suitable[r2];
-}
-
-function random(min, max)
-{
-  return Math.random() * (max - min) + min;
-}
-
-function randomInt(min, max)
-{
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
 }
