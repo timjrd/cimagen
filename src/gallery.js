@@ -70,7 +70,7 @@ function addThumbs(n)
             thumb.setAttribute("height", THUMB_SIZE);
             
             var image_preData = generateValidImage();
-            draw(image_preData[1], thumb);
+            draw(image_preData[1], image_preData[0].gradient, thumb);
             
             GalleryGenerated.appendChild(thumb);
         }
@@ -89,7 +89,7 @@ function generateValidImage()
         var expr = evalConstantParts( generate() );
         if (expr != null)
         {
-            img = image(expr, compile(expr), randomElement(COORD_SYSTEMS));
+            img = image(expr, compile(expr), randomElement(COORD_SYSTEMS), randomElement(GRADIENTS));
             preData = precompute(img, THUMB_SIZE, THUMB_SIZE, true);
         }
     }

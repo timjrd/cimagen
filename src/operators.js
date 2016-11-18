@@ -53,16 +53,6 @@ var OPERATORS = [
     
 ];
 
-
-function getOperator(name)
-{
-    for (var i = 0; i < OPERATORS.length; i++)
-        if (OPERATORS[i].name === name)
-            return OPERATORS[i];
-
-    return null;
-}
-
 function operatorFunction(operator)
 {
     return new Function("$0", "$1", "return (" + operator.jsexpr + ");");

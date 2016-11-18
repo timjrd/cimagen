@@ -20,13 +20,3 @@ var COORD_SYSTEMS = [
       }}
     
 ];
-
-
-function getCoordSystem(name)
-{
-    for (var i = 0; i < COORD_SYSTEMS.length; i++)
-        if (COORD_SYSTEMS[i].name === name)
-            return COORD_SYSTEMS[i];
-
-    return null;
-}

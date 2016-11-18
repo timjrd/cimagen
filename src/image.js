@@ -1,11 +1,12 @@
 "use strict";
 
-function image(expr, compiledExpr, coordSystem)
+function image(expr, compiledExpr, coordSystem, gradient_)
 {
     return {
         expr: expr,
         compiledExpr: compiledExpr,
-        coordSystem: coordSystem
+        coordSystem: coordSystem,
+        gradient: gradient_
     };
 }
 

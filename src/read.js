@@ -75,7 +75,7 @@ function readOperator(str, pos)
     else
         throw parseError("missing", ")");
     
-    var op = getOperator(name);
+    var op = getElement(OPERATORS, name);
 
     if (op === null)
         throw parseError("unknown operator", name);
@@ -101,7 +101,7 @@ function readVariable(str, pos)
 function readSpecialConstant(str, pos)
 {
     var token = readToken(str, pos);
-    var constant = getConstant(token);
+    var constant = getElement(CONSTANTS, token);
     
     if (constant === null)
         throw parseError("unknown special constant", token);

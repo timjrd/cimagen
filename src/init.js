@@ -33,7 +33,7 @@ function onNew()
     var code = document.getElementById("code");
     code.value = print(Expr);
 
-    var preData = precompute(CompiledExpr, Canvas.width, Canvas.height, getCoordSystem("polar sinus"), false);
+    var preData = precompute(CompiledExpr, Canvas.width, Canvas.height, getElement(COORD_SYSTEMS, "polar sinus"), false);
     draw(preData, Canvas);
 }
 
@@ -44,6 +44,6 @@ function onRead()
     Expr = read( textarea.value );
     CompiledExpr = compile(Expr);
 
-    var preData = precompute(CompiledExpr, Canvas.width, Canvas.height, getCoordSystem("polar sinus"), false);
+    var preData = precompute(CompiledExpr, Canvas.width, Canvas.height, getElement(COORD_SYSTEMS, "polar sinus"), false);
     draw(preData, Canvas);
 }

@@ -1,15 +1,6 @@
 "use strict";
 
-var BLUE_GRADIENT = [ [12,44,132],
-                      [34,94,168],
-                      [29,145,192],
-                      [65,182,196],
-                      [127,205,187],
-                      [199,233,180],
-                      [237,248,177],
-                      [255,255,217] ];
-
-function draw(preData, canvas)
+function draw(preData, gradient_, canvas)
 {
     var width  = canvas.width;
     var height = canvas.height;
@@ -31,7 +22,7 @@ function draw(preData, canvas)
 
         var value = (preData.data[preDataIndex] - min) / (max - min);
 
-        var color = gradient(value, BLUE_GRADIENT);
+        var color = gradient(value, gradient_);
         
         data[index]     = color[0]; // red
         data[index + 1] = color[1]; // green
@@ -42,8 +33,10 @@ function draw(preData, canvas)
     ctx.putImageData(imageData, 0, 0);
 }
 
-function gradient(x, steps)
+function gradient(x, gradient_)
 {
+    var steps = gradient_.colors;
+    
     var pos = x * (steps.length - 1);
     
     var fromColor = steps[ Math.floor(pos) ];
