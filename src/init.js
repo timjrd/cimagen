@@ -13,11 +13,13 @@ function init()
     window.onresize = onResize;
     
     initGallery();
+    initViewer();
 }
 
 function onResize()
 {
     onGalleryResize();
+    onViewerResize();
 }
 
 function onNew()

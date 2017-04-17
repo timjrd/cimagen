@@ -1,39 +1,190 @@
+
+/*****************************************************************/
+/* Fonts */
+
 @font-face
 {
     font-family: Gidole;
     src: url(gidole.ttf);
 }
 
+
+
+/*****************************************************************/
+/* Root elements */
+
+html
+{
+    height: 100%;
+}
 body
 {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    
     margin: 0;
 
-    color: white;
     font-family: Gidole, sans-serif;
     
-    background: repeat fixed url("bg.svg");
+    /*background: repeat fixed url("bg.svg");*/
+    color: rgb(50,50,50);
+    background-color: rgb(50,50,50);
 }
+*
+{
+    font-family: Gidole, sans-serif;
+}
+:focus
+{
+    outline: 0;
+}
+
+
+
+/*****************************************************************/
+/* Header */
+
+header
+{
+    display: flex;
+    align-items: center;
+    
+    padding: 5px;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+header > *
+{
+    margin: 0 15px 0 0;
+}
+header > *:last-child
+{
+    margin: 0;
+}
+header > h1
+{
+    font-size: 160%;
+}
+header > h2
+{
+    font-size: 100%;
+    font-weight: normal;
+}
+
+
+/*****************************************************************/
+/* Pages */
+
+.pages
+{
+    flex: 1;
+    overflow: hidden;
+}
+.pages > div
+{
+    position: relative;
+    height: 100%;
+    transition: right 0.3s ease;
+}
+.pages > div > *
+{
+    position: absolute;
+    top: 0;
+
+    width:  100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+.pages > div > :nth-child(1) { left:  0   ; }
+.pages > div > :nth-child(2) { left:  100%; }
+
+.pages.focused-1 > div       { right: 0   ; }
+.pages.focused-2 > div       { right: 100%; }
+
+
+
+/*****************************************************************/
+/* Hide scrollbar */
+
+/* 
+   .hide-scrollbar
+   {
+   overflow-x: hidden;
+   }
+   .hide-scrollbar > *
+   {
+   max-height: 100%;
+   margin-right: -100px;
+   padding-right: 100px;
+   }
+*/
+
+/*****************************************************************/
+/* Gallery */
 
 #gallery
 {
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
-
     text-align: center;
 }
-#gallery h2
+#gallery p
 {
     display: inline-block;
-    
-    margin: 5px;
-    padding: 0;
-    
-    font-weight: normal;
-    font-size: 270%;
 
-    border-bottom: 10px solid white;
+    background-color: white;
+    
+    margin: 10px 10px 5px 10px;
+    padding: 10px;
+    
+    font-size: 100%;
+
+    box-shadow: 0 0 10px black;
 }
 #gallery canvas
 {
     margin: 5px;
+    box-shadow: 0 0 10px black;
+}
+
+
+
+/*****************************************************************/
+/* Viewer */
+
+#viewer
+{
+    display: flex;
+    flex-direction: column;
+}
+#viewer > .back
+{
+    align-self: center;
+    margin: 10px;
+    padding: 5px;
+    border: none;
+    font-size: 130%;
+    font-weight: bold;
+
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    box-shadow: 0 0 10px black;
+
+    transition: background-color 0.1s linear, color 0.1s linear;
+}
+#viewer > .back:hover
+{
+    color: inherit;
+    background-color: white;
+}
+#viewer > #viewerViewport
+{
+    flex: 1;
+    box-shadow: 0 0 10px black;
 }

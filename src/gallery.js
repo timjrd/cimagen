@@ -22,6 +22,11 @@ function initGallery()
     addThumbPages(THUMB_PAGES_MORE);
 }
 
+function focusGallery()
+{
+    document.getElementById("pages").className = "pages focused-1";
+}
+
 function getScrollBottom()
 {
     return Gallery.scrollHeight - Gallery.clientHeight - Gallery.scrollTop;
@@ -72,11 +77,21 @@ function addThumbs(n)
             var image_preData = generateValidImage();
             draw(image_preData[1], image_preData[0].gradient, thumb);
             
+            thumb.onclick = thumbOnClick(image_preData[0]);
+            
             GalleryGenerated.appendChild(thumb);
         }
 
         window.setTimeout(addThumbs, 0, n - THUMB_BATCH);
     }
+}
+
+function thumbOnClick(image)
+{
+    return function() {
+        setViewerImage(image);
+        focusViewer();
+    };
 }
 
 function generateValidImage()
